@@ -1,14 +1,14 @@
-# Python bindings for the OPM-common module of the Open Porous Media project.
+# Python bindings for the opm-simulators module of the Open Porous Media project.
 
 ## To compile with python support:
 
-- Add the cmake flags `-DOPM_ENABLE_PYTHON=ON` and `-DOPM_INSTALL_PYTHON=ON`
+- Add the `cmake` flags `-DOPM_ENABLE_PYTHON=ON` and `-DOPM_INSTALL_PYTHON=ON`
 - Optionally add prefix `-DCMAKE_INSTALL_PREFIX=/opt/opm` to install outside
   the standard distro directories
 - Optionally specify python binary `-DPython3_EXECUTABLE=/home/user/miniconda3/envs/rkt/bin/python3`
   if you don't want to use the system python, e.g. use a python from `pyenv` or from a `conda` environment
 
-### Sample compilation on linux:
+### Sample compilation on Linux:
 
 ```bash
 #! /bin/bash
