@@ -1,12 +1,6 @@
 # Configuration file for the Sphinx documentation builder.
-#
-# For the full list of built-in configuration values, see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-# -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-
-project = "opm-simulators"
+project = "opm.simulators"
 copyright = "2024 Equinor ASA"
 author = "Håkon Hægland"
 release = "0.1"
@@ -23,8 +17,10 @@ import sys
 # of opm-simulators requres both time and storage resources, so we do not want to
 # do this as part of the documentation build. Instead, we will use a Python script
 # to extract the doc strings from the C++ code.
-#sys.path.insert(0, os.path.abspath("../opm"))
-#extensions = ["sphinx.ext.autodoc", "sphinx_autodoc_typehints"]
+sys.path.insert(0, os.path.abspath("../src"))
+extensions = ["opm_simulators_docs.sphinx_ext_docstrings"]
+# Path to docstrings.json
+opm_simulators_docstrings_path = os.path.abspath('docstrings.json')
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]

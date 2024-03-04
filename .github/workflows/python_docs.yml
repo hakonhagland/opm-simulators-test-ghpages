@@ -35,6 +35,7 @@ jobs:
             mkdir gh-pages
             touch gh-pages/.nojekyll
             cd docs/
+            poetry run opmsd-extract-docstrings ../../../opm/simulators/flow/python/PyBlackOilSimulatorDoc.hpp docstrings.json
             poetry run sphinx-build -b html . _build
         - name: Copy documentation to gh-pages
           run: |

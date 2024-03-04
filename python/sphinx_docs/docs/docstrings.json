@@ -1,0 +1,54 @@
+{
+    "PyBlackOilSimulator_filename_constructor": {
+        "signature": "__init__(deck_filename: str) -> None",
+        "doc": "Constructor using a deck file name.\n\n:param deck_filename: The file name of the deck to be used for the simulation.\n:type deck_filename: str"
+    },
+    "PyBlackOilSimulator_objects_constructor": {
+        "signature": "__init__(deck: Deck, state: EclipseState, schedule: Schedule, summary_config: SummaryConfig) -> None",
+        "doc": "Constructor using Deck, EclipseState, Schedule, and SummaryConfig objects.\n\n:param deck: Deck object.\n:type deck: Deck\n:param state: EclipseState object.\n:type state: EclipseState\n:param schedule: Schedule object.\n:type schedule: Schedule\n:param summary_config: SummaryConfig object.\n:type summary_config: SummaryConfig"
+    },
+    "advance": {
+        "signature": "advance(report_step: int) -> None",
+        "doc": "Advance the simulation to a specific report step.\n\n:param report_step: Target report step to advance to.\n:type report_step: int"
+    },
+    "checkSimulationFinished": {
+        "signature": "check_simulation_finished() -> bool",
+        "doc": "Check if the simulation has finished.\n\n:return: True if the simulation is finished, False otherwise."
+    },
+    "currentStep": {
+        "signature": "current_step() -> int",
+        "doc": "Get the current simulation step.\n\n:return: The current step number."
+    },
+    "getCellVolumes": {
+        "signature": "get_cell_volumes() -> numpy.ndarray",
+        "doc": "Retrieve the cell volumes of the simulation grid.\n\n:return: An array of cell volumes.\n:type return: numpy.ndarray"
+    },
+    "getDT": {
+        "signature": "get_dt() -> float",
+        "doc": "Get the timestep size of the last completed step.\n\n:return: Timestep size in days.\n:type return: float"
+    },
+    "getPorosity": {
+        "signature": "get_porosity() -> numpy.ndarray",
+        "doc": "Retrieve the porosity values of the simulation grid.\n\n:return: An array of porosity values.\n:type return: numpy.ndarray"
+    },
+    "run": {
+        "signature": "run() -> int",
+        "doc": "Run the simulation with the provided deck file or previously set deck.\n\n:return: EXIT_SUCCESS if the simulation completes successfully."
+    },
+    "setPorosity": {
+        "signature": "set_porosity(porosity: numpy.ndarray) -> None",
+        "doc": "Set the porosity values for the simulation grid.\n\n:param porosity: An array of porosity values to be set.\n:type porosity: numpy.ndarray"
+    },
+    "step": {
+        "signature": "step() -> int",
+        "doc": "Execute the next simulation report step.\n\n:return: Result of the simulation step."
+    },
+    "stepCleanup": {
+        "signature": "step_cleanup() -> int",
+        "doc": "Perform cleanup after a simulation step.\n\n:return: EXIT_SUCCESS if cleanup is successful."
+    },
+    "stepInit": {
+        "signature": "step_init() -> int",
+        "doc": "Initialize the simulation step.\n\n:return: EXIT_SUCCESS if the initialization is successful."
+    }
+}

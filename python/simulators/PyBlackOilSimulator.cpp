@@ -27,10 +27,12 @@
 //#include <opm/simulators/flow/python/PyFluidState.hpp>
 #include <opm/simulators/flow/python/PyMaterialState.hpp>
 #include <opm/simulators/flow/python/PyBlackOilSimulator.hpp>
+#include <opm/simulators/flow/python/PyBlackOilSimulatorDoc.hpp>
 // NOTE: EXIT_SUCCESS, EXIT_FAILURE is defined in cstdlib
 #include <cstdlib>
 #include <stdexcept>
 #include <string>
+#include <sstream>
 
 namespace Opm {
 
@@ -212,28 +214,49 @@ PyBlackOilSimulator::getMaterialState() const
     }
 }
 
+std::string stripSphinxSignature(const std::string& docstring) {
+    std::istringstream stream(docstring);
+    std::string line;
+    std::string result;
+    bool firstLine = true; // To track the first line of the docstring content
+    while (std::getline(stream, line)) {
+        // Skip lines that start with "//"
+        if (line.find("//") == 0) continue;
+        if (!firstLine) {
+            result += "\n"; // Add a newline before adding the next line of content
+        } else {
+            firstLine = false; // After the first line of content, set this to false
+        }
+        result += line;
+    }
+    return result;
+}
+
 // Exported functions
 void export_PyBlackOilSimulator(py::module& m)
 {
+    using namespace Opm::Pybind::DocStrings;
+
     py::class_<PyBlackOilSimulator>(m, "BlackOilSimulator")
-        .def(py::init< const std::string& >())
+        .def(py::init<const std::string&>(),
+             stripSphinxSignature(PyBlackOilSimulator_filename_constructor_docstring))
         .def(py::init<
-            std::shared_ptr<Opm::Deck>,
-            std::shared_ptr<Opm::EclipseState>,
-            std::shared_ptr<Opm::Schedule>,
-            std::shared_ptr<Opm::SummaryConfig> >())
-        .def("get_cell_volumes", &PyBlackOilSimulator::getCellVolumes,
-            py::return_value_policy::copy)
-        .def("get_dt", &PyBlackOilSimulator::getDT)
-        .def("get_porosity", &PyBlackOilSimulator::getPorosity,
-            py::return_value_policy::copy)
-        .def("run", &PyBlackOilSimulator::run)
-        .def("set_porosity", &PyBlackOilSimulator::setPorosity)
-        .def("current_step", &PyBlackOilSimulator::currentStep)
-        .def("step", &PyBlackOilSimulator::step)
-        .def("advance", &PyBlackOilSimulator::advance, py::arg("report_step"))
-        .def("step_init", &PyBlackOilSimulator::stepInit)
-        .def("step_cleanup", &PyBlackOilSimulator::stepCleanup);
+             std::shared_ptr<Opm::Deck>,
+             std::shared_ptr<Opm::EclipseState>,
+             std::shared_ptr<Opm::Schedule>,
+             std::shared_ptr<Opm::SummaryConfig>>(),
+             stripSphinxSignature(PyBlackOilSimulator_objects_constructor_docstring))
+        .def("advance", &PyBlackOilSimulator::advance, stripSphinxSignature(advance_docstring), py::arg("report_step"))
+        .def("check_simulation_finished", &PyBlackOilSimulator::checkSimulationFinished, stripSphinxSignature(checkSimulationFinished_docstring))
+        .def("current_step", &PyBlackOilSimulator::currentStep, stripSphinxSignature(currentStep_docstring))
+        .def("get_cell_volumes", &PyBlackOilSimulator::getCellVolumes, stripSphinxSignature(getCellVolumes_docstring))
+        .def("get_dt", &PyBlackOilSimulator::getDT, stripSphinxSignature(getDT_docstring))
+        .def("get_porosity", &PyBlackOilSimulator::getPorosity, stripSphinxSignature(getPorosity_docstring))
+        .def("run", &PyBlackOilSimulator::run, stripSphinxSignature(run_docstring))
+        .def("set_porosity", &PyBlackOilSimulator::setPorosity, stripSphinxSignature(setPorosity_docstring), py::arg("array"))
+        .def("step", &PyBlackOilSimulator::step, stripSphinxSignature(step_docstring))
+        .def("step_cleanup", &PyBlackOilSimulator::stepCleanup, stripSphinxSignature(stepCleanup_docstring))
+        .def("step_init", &PyBlackOilSimulator::stepInit, stripSphinxSignature(stepInit_docstring));
 }
 
 } // namespace Opm::Pybind

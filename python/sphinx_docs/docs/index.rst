@@ -6,6 +6,7 @@ Welcome to the Python documentation for opm-simulators!
     :caption: Contents:
 
     introduction
+    python
 
 Indices and tables
 ==================
