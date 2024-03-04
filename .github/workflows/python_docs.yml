@@ -27,21 +27,20 @@ jobs:
           uses: abatilo/actions-poetry@v2
         - name: Install python dependencies
           run: |
-            cd python
+            cd python/sphinx_docs
             poetry install -E docs
         - name: Build documentation
           run: |
             cd python
             mkdir gh-pages
             touch gh-pages/.nojekyll
-            cd docs/
+            cd sphinx_docs/docs/
             poetry run opmsd-extract-docstrings ../../../opm/simulators/flow/python/PyBlackOilSimulatorDoc.hpp docstrings.json
             poetry run sphinx-build -b html . _build
         - name: Copy documentation to gh-pages
           run: |
-            cd python/docs
-            cp -r _build/* ../gh-pages/
-            ls -la ../gh-pages/
+            cd python/sphinx_docs/docs
+            cp -r _build/* ../../gh-pages/
         - name: Deploy documentation
           if: ${{ github.event_name == 'push' }}
           uses: JamesIves/github-pages-deploy-action@v4
